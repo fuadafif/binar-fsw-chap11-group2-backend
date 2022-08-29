@@ -19,5 +19,8 @@
     "pg": "^8.7.3",
     "sequelize": "^6.21.3",
     "sequelize-cli": "^6.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.22.0"
   }
 }
