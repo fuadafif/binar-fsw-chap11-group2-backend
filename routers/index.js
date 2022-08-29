@@ -5,13 +5,14 @@ const router = require("express").Router();
 const userController = require("../controllers/user");
 
 //  import middleware
-const jwtMiddleware = require("../middlewares/jwt");
+// const jwtMiddleware = require("../middlewares/jwt");
 
 // api user
 router.post("/login", userController.login);
 router.post("/register", userController.register);
 router.get("/players", userController.showPlayers);
 router.get("/biodata/:username", userController.getUserByName);
+router.post('/biodata/update/:username', userController.updateUser);
 
 // api game, menggunakan middleware jwt
 // router.post("/create-room", jwtMiddleware.jwtAuthorization, roomController.create);
