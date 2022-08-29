@@ -130,7 +130,7 @@ const showPlayers = (req, res) => {
   .then(users => {
     res.status(200).json(users);
   })
-  .catch(err => {
+  .catch(() => {
     res.status(404).json({
       message: "Gagal memuat data"
     });
