@@ -130,7 +130,7 @@ const showPlayers = (req, res) => {
   .then(users => {
     res.status(200).json(users);
   })
-  .catch(err => {
+  .catch(() => {
     res.status(404).json({
       message: "Gagal memuat data"
     });
@@ -166,10 +166,43 @@ const getUserByName = async (req, res) => {
 }
 
 
+// update profile
+const updateUser = async (req, res) => {
+
+  const email = req.body.email;
+  const city = req.body.city;
+
+  const emailAlreadyRegistered = await user_game.findOne({
+    where: { email: email }
+  });
+
+  if (emailAlreadyRegistered) {
+    return res.status(401).json({
+      message: "Email sudah terdaftar"
+    });
+  }
+
+  await user_game.update({
+    email: email,
+    city: city
+  }, {
+    where: { username: req.params.username }
+  });
+
+  return res.status(200).json({
+    message: "Update berhasil",
+    data: {
+      email,
+      city 
+    }
+  });
+}
+
 
 module.exports = {
   login,
   register,
   showPlayers,
-  getUserByName
+  getUserByName,
+  updateUser
 };
