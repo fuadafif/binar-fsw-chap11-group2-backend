@@ -23,7 +23,7 @@ const login = async (req, res) => {
   // jika user tidak ditemukan
   if (!userData) {
     return res.status(401).json({
-      message: "User tidak terdaftar.",
+      message: "User is not registered.",
     });
   }
 
@@ -33,7 +33,7 @@ const login = async (req, res) => {
   // jika password tidak sesuai
   if (!isPasswordMatch) {
     return res.status(401).json({
-      message: "Password salah.",
+      message: "Wrong password.",
     });
   }
 
@@ -69,7 +69,8 @@ const register = async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const city = req.body.city;
-  const role = "PlayerUser"; // secara default, berikan role PlayerUser pada user baru
+  const role = "PlayerUser";
+  const picture = "https://res.cloudinary.com/project-nugie/image/upload/v1662047895/profile-2_oh6hqi.webp" // secara default, berikan role PlayerUser pada user baru
 
   // cari user yang sesuai dengan email
   const emailAlreadyRegistered = await user_game.findOne({
@@ -79,7 +80,7 @@ const register = async (req, res) => {
   // jika email sudah terdaftar
   if (emailAlreadyRegistered) {
     return res.status(401).json({
-      message: "Email sudah terdaftar.",
+      message: "Email already registered.",
     });
   }
 
@@ -91,7 +92,7 @@ const register = async (req, res) => {
   // jika username sudah terdaftar
   if (usernameAlready) {
     return res.status(401).json({
-      message: "Username sudah terdaftar.",
+      message: "Username already registered.",
     });
   }
 
@@ -105,17 +106,19 @@ const register = async (req, res) => {
     password: encryptedPassword,
     city: city,
     role: role,
+    picture: picture
   });
 
   // buat response
   return res.status(200).json({
-    message: "Registrasi berhasil.",
+    message: "Registrasi successful.",
     data: {
       id: newUser.id,
       email: newUser.email,
       username: newUser.username,
       city: newUser.city,
       role: newUser.role,
+      picture: newUser.picture
     },
   });
 };
@@ -132,7 +135,7 @@ const showPlayers = (req, res) => {
   })
   .catch(() => {
     res.status(404).json({
-      message: "Gagal memuat data"
+      message: "Failed to load data."
     });
 
   }) 
@@ -148,7 +151,7 @@ const getUserByName = async (req, res) => {
 
   if (!userData) {
     return res.status(404).json({
-      message: "User tidak ditemukan"
+      message: "User not found."
     });
   }
 
@@ -178,7 +181,7 @@ const updateUser = async (req, res) => {
 
   if (emailAlreadyRegistered) {
     return res.status(401).json({
-      message: "Email sudah terdaftar"
+      message: "Email already registered"
     });
   }
 
@@ -190,7 +193,7 @@ const updateUser = async (req, res) => {
   });
 
   return res.status(200).json({
-    message: "Update berhasil",
+    message: "Update successful",
     data: {
       email,
       city 
