@@ -14,7 +14,7 @@ router.post("/register", userController.register);
 router.get("/players", userController.showPlayers);
 router.get("/biodata/:username", userController.getUserByName);
 router.post('/biodata/update/:username', userController.updateUser);
-router.post('/upload', uploadController.uploadFile);
+router.post('/upload/:username', uploadController.uploadFile);
 
 // api game, menggunakan middleware jwt
 // router.post("/create-room", jwtMiddleware.jwtAuthorization, roomController.create);

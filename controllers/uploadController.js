@@ -1,5 +1,6 @@
 // import cloudinary uploader
 const cloud = require('../cloud/cloudinary');
+const { user_game } = require("../models");
 
 // fungsi menambah file
 const uploadFile = async (req, res) => {
@@ -11,16 +12,21 @@ const uploadFile = async (req, res) => {
   if (file.length) {
     try {
       fileURL = await cloud.upload(file[0]); // hanya upload 1 file
+      await user_game.update({
+        picture: fileURL
+      }, {
+        where: { username: req.params.username }
+      });
     } catch (err) {
       return res.status(500).json({
-        message: 'Terjadi kesalahan.',
+        message: 'Something wrong.',
       });
     }
   }
 
   // berikan response sukses
   return res.status(201).json({
-    message: 'Berhasil menambahkan gambar.',
+    message: 'Successfully added image.',
     url: fileURL,
   });
 };
