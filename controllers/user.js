@@ -111,7 +111,7 @@ const register = async (req, res) => {
 
   // buat response
   return res.status(200).json({
-    message: "Registrasi successful.",
+    message: "Registration successful.",
     data: {
       id: newUser.id,
       email: newUser.email,
@@ -174,16 +174,6 @@ const updateUser = async (req, res) => {
 
   const email = req.body.email;
   const city = req.body.city;
-
-  const emailAlreadyRegistered = await user_game.findOne({
-    where: { email: email }
-  });
-
-  if (emailAlreadyRegistered) {
-    return res.status(401).json({
-      message: "Email already registered"
-    });
-  }
 
   await user_game.update({
     email: email,
