@@ -91,7 +91,7 @@ const register = async (req, res) => {
 
   // jika username sudah terdaftar
   if (usernameAlready) {
-    return res.status(401).json({
+    return res.status(402).json({
       message: "Username already registered.",
     });
   }
