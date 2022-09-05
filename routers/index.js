@@ -2,7 +2,7 @@
 const router = require("express").Router();
 
 // import controller
-const userController = require("../controllers/user");
+const userController = require("../controllers/userController");
 const uploadController = require("../controllers/uploadController");
 
 //  import middleware
